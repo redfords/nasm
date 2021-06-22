@@ -21,3 +21,5 @@ ld -m elf_i386 -s -o ej1 ej1.o -lc -I /lib/ld-linux.so.2
 [Ray Toal - Loyola Marymount University](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
 
 [Assembly Language Tutorial](http://www.pravaraengg.org.in/Download/MA/assembly_tutorial.pdf)
+
+[X64 Linux Assembly Environment Setup](https://epi052.gitlab.io/notes-to-self/blog/2018-07-22-x64-linux-assembly-environment-setup/)
