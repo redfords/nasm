@@ -5,15 +5,15 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
 ## How to run
 
 Linux instructions:
+```
+	sudo apt-get install libc6-dev-i386
+  
+	nasm -f elf ejercicio1.asm
 
-sudo apt-get install libc6-dev-i386
+	ld -m elf_i386 -s -o ejercicio1 ejercicio1.o -lc -I /lib/ld-linux.so.2
 
-nasm -f elf ej1.asm
-
-ld -m elf_i386 -s -o ej1 ej1.o -lc -I /lib/ld-linux.so.2
-
-./ej1
-
+	./ejercicio1
+```
 ## Resources
 
 [Learn Assembly Language](https://asmtutor.com/)
