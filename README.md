@@ -2,6 +2,14 @@
 
 The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 architecture. It can be used to write 16-bit, 32-bit (IA-32) and 64-bit (x86-64) programs.
 
+## Structure of a NASM program
+
+ASM is line-based. Most programs consist of directives followed by one or more sections. Lines can have an optional label. Most lines have an instruction followed by zero or more operands.
+
+
+
+Generally, you put code in a section called .text and your constant data in a section called .data.
+
 ## How to run on Linux
 
 Install the libc6-dev-i386 package:
