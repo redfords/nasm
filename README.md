@@ -6,7 +6,9 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
 
 ASM is line-based. Most programs consist of directives followed by one or more sections. Lines can have an optional label. Most lines have an instruction followed by zero or more operands.
 
-![nasm program](https://i.imgur.com/m2Q8Tci.png)
+<p align="center">
+  <img src="https://i.imgur.com/plw55Dq.png">
+</p>
 
 Generally, you put code in a section called .text and your constant data in a section called .data.
 
