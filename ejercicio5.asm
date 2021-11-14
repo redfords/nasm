@@ -98,8 +98,8 @@ cargarCadena:
 		call 	mostrarSaltoDeLinea
 		call 	leerCadena
 		mov 	esi, 0
-		mov 	bl, 49
-		mov 	cl, 49
+		mov 	bl, 99
+		mov 	cl, 99
 
 bucle:
 		sub 	bl, 1
@@ -139,7 +139,7 @@ imprimir:
 		jne 	saltarRepetidos
 
 inicializar:
-		mov 	bl, 49
+		mov 	bl, 99
 		mov 	esi, 0
 		sub 	cl, 1
 		mov 	edi, 0
