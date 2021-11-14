@@ -36,7 +36,7 @@ auxiliarPrueba:
 caracter:
 		dd  		0x0
 strUno:
-		db		"Ingresar 25 caracteres: ", 0
+		db		"Ingresar 100 caracteres: ", 0
 
 		section .text
 leerCadena:
