@@ -1,5 +1,6 @@
 ; ----------------------------------------------------------------------------------------
-; Se ingresa una matriz de NxM componentes. La computadora la muestra girada 90° en sentido ; horario.
+; Se ingresa una matriz de NxM componentes. La computadora la muestra girada 90° en sentido
+; horario.
 ;
 ; 		nasm -f elf ejercicio7.asm
 ;		ld -m elf_i386 -s -o ejercicio7 ejercicio7.o -lc -I /lib/ld-linux.so.2
@@ -101,10 +102,6 @@ mostrarSaltoDeLinea:
 		call 	printf
 		add 	esp, 4
 		ret
-
-salirDelPrograma:
-		push 	0
-		call 	exit
 
 ;matriz[i][j] = matriz[i * columnas + j] = indice matriz 1D
 	
@@ -225,4 +222,5 @@ rotarMatriz:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		push 	0
+		call 	exit
