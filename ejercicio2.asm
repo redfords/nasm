@@ -34,7 +34,15 @@ fmtLF:
 strInicio:
 		db		"Ingresar cadena: ", 0          
 
-		section	.text                    
+		section	.text
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadenaTexto], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne		cargarCadena
+		ret
+
 leerCadena:                      
 		push 	cadena
 		call 	gets
@@ -67,17 +75,18 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadenaTexto], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-
+iniciar:
+		call	cargarCadena
 		call 	mostrarCadenaTexto
 		call 	mostrarSaltoDeLinea
 		call 	leerCadena
@@ -109,5 +118,4 @@ seguirImpares:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		push 	0
-		call 	exit
+		call	salirDelPrograma
