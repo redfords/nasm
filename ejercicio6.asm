@@ -25,7 +25,6 @@
 		extern	scanf
 		extern	printf
 		extern	gets
-		extern	exit
 
 		section .bss
 numero:
@@ -52,6 +51,14 @@ strInicio:
 		db		"Ingresar n: ", 0
 
 		section .text
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadena], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne 	cargarCadena
+		ret
+
 leerNumero:
 		push 	auxBucle
 		push 	fmtInt
@@ -91,17 +98,18 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-
+iniciar:
+		call	cargarCadena
 		call 	mostrarCadena
 		call 	mostrarSaltoDeLinea
 		call 	leerNumero
@@ -162,5 +170,4 @@ esMayor:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		push 	0
-		call 	exit
+		call	salirDelPrograma
