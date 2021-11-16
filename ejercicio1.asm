@@ -110,7 +110,7 @@ bucleDos:
 		cmp 	edx, 0
 		jne 	incrementar	
 		call 	mostrarDivisor
-		call 	mostrarTabulado
+		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxiliar]
 		mov 	[numero], eax
 		mov 	ebx, [divisor]
