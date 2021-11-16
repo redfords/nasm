@@ -77,9 +77,10 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
-salirDelPrograma:
-		push 	0
-		call 	exit
+mostrarResultado:
+		mov 	[caracter], cl
+		call 	mostrarCaracter
+		ret
 
 _start:
 main:
@@ -124,14 +125,12 @@ divisible400:
 
 esBisiesto:
 		mov 	cl, 83
-		mov 	[caracter], cl
-		call 	mostrarCaracter
-		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		call	mostrarResultado
+		push 	0
+		call 	exit
 
 noEsBisiesto:
 		mov 	cl, 78
-		mov 	[caracter], cl
-		call 	mostrarCaracter
-		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		call	mostrarResultado
+		push 	0
+		call 	exit
