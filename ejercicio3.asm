@@ -36,6 +36,13 @@ strInicio:
 		db 		"Ingresar año: ", 0
 
 		section	.text
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadena], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne		cargarCadena
+		ret
 
 leerCadena:
 		push 	cadena
@@ -71,31 +78,32 @@ mostrarCaracter:
 		add 	esp, 8
 		ret
 
-mostrarSaltoDeLinea:
-		push 	fmtLF
-		call 	printf
-		add 	esp, 4
-		ret
-
 mostrarResultado:
 		mov 	[caracter], cl
 		call 	mostrarCaracter
+		ret
+
+mostrarSaltoDeLinea:
+		push	fmtLF
+		call	printf
+		add		esp, 4
+		ret
+
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
 		ret
 
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-
-call mostrarCadena
-call mostrarSaltoDeLinea
-call leerNumero
+iniciar:
+		call	cargarCadena
+		call 	mostrarCadena
+		call 	mostrarSaltoDeLinea
+		call 	leerNumero
 		mov 	eax, [numero]
 		mov 	edx, 0
 		mov 	ecx, 4
@@ -126,11 +134,13 @@ divisible400:
 esBisiesto:
 		mov 	cl, 83
 		call	mostrarResultado
-		push 	0
-		call 	exit
+		jmp		salir
 
 noEsBisiesto:
 		mov 	cl, 78
 		call	mostrarResultado
-		push 	0
-		call 	exit
+		jmp		salir
+
+salir:
+		call 	mostrarSaltoDeLinea
+		call	salirDelPrograma
