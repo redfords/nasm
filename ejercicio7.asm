@@ -12,7 +12,6 @@
 		extern	scanf
 		extern	printf
 		extern	gets
-		extern	exit
 
 		section .bss
 numero:
@@ -50,6 +49,14 @@ tabulado:
 		db  		0x09, 0
 
 		section .text
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadena], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne 	cargarCadena
+		ret
+
 leerCadena:
 		push 	cadena
 		call 	gets
@@ -103,19 +110,20 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 ;matriz[i][j] = matriz[i * columnas + j] = indice matriz 1D
 	
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-
+iniciar:
+		call	cargarCadena
 		call 	mostrarCadena
 		call 	mostrarSaltoDeLinea
 		call 	leerNumero
@@ -222,5 +230,4 @@ rotarMatriz:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		push 	0
-		call 	exit
+		call	salirDelPrograma
