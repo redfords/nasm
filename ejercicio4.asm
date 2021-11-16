@@ -68,10 +68,6 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
-salirDelPrograma:
-		push 	0
-		call 	exit
-
 _start:
 main:
 		call 	leerNumero
@@ -82,52 +78,55 @@ main:
 		mov 	[contadorDos], eax
 		call 	mostrarSaltoDeLinea
 
-bucle:
-		mov 	esi, [contadorUno]
-		dec 	esi
-		mov 	[contadorUno], esi
-		cmp 	esi, 0
-		je 		imprimir
-		call 	leerNumero
-		mov 	eax, [numero]
-		mov 	[numeroAux], eax
-		mov 	cl, 2
-		div 	cl
-		cmp 	ah, 0
-		je 		sumarPares
-		jne 	sumarImpar
+		bucle:
+				mov 	esi, [contadorUno]
+				dec 	esi
+				mov 	[contadorUno], esi
+				cmp 	esi, 0
+				je 		calcularPromedio
+				call 	leerNumero
+				mov 	eax, [numero]
+				mov 	[numeroAux], eax
+				mov 	cl, 2
+				div 	cl
+				cmp 	ah, 0
+				je 		sumarPares
+				jne 	sumarImpar
 
-sumarPares:
-		mov 	esi, [contadorDos]
-		inc 	esi
-		mov 	[contadorDos], esi
-		add 	eax, eax
-		add 	eax, [numeroPar]
-		mov 	[numeroPar], eax
-		mov 	edi, [contadorUno]
-		cmp 	edi, 0
-		jne 	bucle
-		jmp 	imprimir
+		sumarPares:
+				mov 	esi, [contadorDos]
+				inc 	esi
+				mov 	[contadorDos], esi
+				add 	eax, eax
+				add 	eax, [numeroPar]
+				mov 	[numeroPar], eax
+				mov 	edi, [contadorUno]
+				cmp 	edi, 0
+				jne 	bucle
+				jmp 	calcularPromedio
 
-sumarImpar:
-		mov 	eax, [numeroAux]
-		add 	eax, [numeroImpar]
-		mov 	[numeroImpar], eax
-		mov 	esi, [contadorUno]
-		cmp 	esi, 0
-		jne 	bucle
-	
-imprimir:
-		mov 	eax, [numeroPar]
-		mov 	edx, 0
-		mov 	ecx, [contadorDos]
-		idiv 	ecx
-		mov 	[promedio], eax
-		call 	mostrarSaltoDeLinea
-		call 	mostrarPromedio
-		call 	mostrarSaltoDeLinea
-		mov 	eax, [numeroImpar]
-		mov 	[numero], eax
-		call 	mostrarNumero
-		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		sumarImpar:
+				mov 	eax, [numeroAux]
+				add 	eax, [numeroImpar]
+				mov 	[numeroImpar], eax
+				mov 	esi, [contadorUno]
+				cmp 	esi, 0
+				jne 	bucle
+		
+		calcularPromedio:
+				mov 	eax, [numeroPar]
+				mov 	edx, 0
+				mov 	ecx, [contadorDos]
+				idiv 	ecx
+				mov 	[promedio], eax
+
+		salir:				
+				call 	mostrarSaltoDeLinea
+				call 	mostrarPromedio
+				call 	mostrarSaltoDeLinea
+				mov 	eax, [numeroImpar]
+				mov 	[numero], eax
+				call 	mostrarNumero
+				call 	mostrarSaltoDeLinea
+				push 	0
+				call 	exit
