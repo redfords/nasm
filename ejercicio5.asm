@@ -11,7 +11,6 @@
 		extern	scanf
 		extern	printf
 		extern	gets
-		extern	exit
 
 		section .bss
 cadenaTexto:
@@ -39,6 +38,14 @@ strUno:
 		db		"Ingresar 100 caracteres: ", 0
 
 		section .text
+cargarCadena:
+		mov 	al, [edi + strUno]
+		mov 	[edi + cadenaTexto], al
+		inc 	edi
+		cmp 	al, 0
+		jne 	cargarCadena
+		ret
+
 leerCadena:
 		push 	cadena
 		call 	gets
@@ -79,17 +86,18 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	al, [edi + strUno]
-		mov 	[edi + cadenaTexto], al
-		inc 	edi
-		cmp 	al, 0
-		jne 	cargarCadena
-
+iniciar:
+		call	cargarCadena
 		call 	mostrarCadenaTexto
 		call 	mostrarSaltoDeLinea
 		call 	leerCadena
@@ -145,5 +153,4 @@ inicializar:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		push 0
-		call exit
+		call	salirDelPrograma
