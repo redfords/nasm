@@ -79,10 +79,6 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
-salirDelPrograma:
-		push 0
-		call exit
-
 _start:
 main:
 		mov 	edi, 0
@@ -149,4 +145,5 @@ inicializar:
 
 salir:
 		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		push 0
+		call exit
