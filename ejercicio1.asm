@@ -32,8 +32,6 @@ fmtString:
 		db		"%s", 0                      
 fmtLF:
 		db		0xA, 0 
-tabulado:
-		db		0x09, 0
 strInicio:
 		db		"Ingresar numero: ", 0
 
