@@ -67,10 +67,6 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
-salirDelPrograma:               
-		push 	0
-		call 	exit
-
 _start:
 main:
 		mov 	edi, 0
@@ -104,13 +100,14 @@ imprimir:
 
 seguirImpares:
 		test 	edi,1            
-		jp 		finPrograma          
+		jp 		salir          
 		mov 	al,0x20             
 		mov 	[caracter],al      
 		call 	mostrarCaracter    
 		mov 	edi,0              
 		jmp 	seguir             
 
-finPrograma:
+salir:
 		call 	mostrarSaltoDeLinea
-		jmp 	salirDelPrograma
+		push 	0
+		call 	exit
