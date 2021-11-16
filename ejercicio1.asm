@@ -12,7 +12,6 @@
 		extern	scanf
 		extern	printf
 		extern	gets
-		extern	exit
 
 		section	.bss
 numero:
@@ -36,10 +35,12 @@ strInicio:
 		db		"Ingresar numero: ", 0
 
 		section	.text
-leerCadena:
-		push	cadena
-		call	gets
-		add		esp, 4
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadena], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne		cargarCadena
 		ret
 
 mostrarCadena:
@@ -76,17 +77,18 @@ mostrarSaltoDeLinea:
 		add		esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 _start:
 main:
 		mov 	edi, 0
 
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne		cargarCadena
-
+iniciar:
+		call	cargarCadena
 		call	mostrarCadena
 		call	mostrarSaltoDeLinea
 		call	leerNumero
@@ -125,5 +127,4 @@ incrementar:
 salir:
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		push	0
-		call	exit
+		call	salirDelPrograma
