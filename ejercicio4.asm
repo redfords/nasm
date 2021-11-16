@@ -11,13 +11,20 @@
 		global	_start
 		extern	scanf
 		extern	printf
-		extern	exit
+
+		section .bss
+cadena:
+		resb	0x0100
 
 		section .data
 fmtInt:
 		db		"%d", 0
+fmtString:
+		db		"%s", 0    
 fmtLF:
 		db		0xA, 0
+strInicio:
+		db		"Ingresar N y luego N numeros: ", 0
 numero:
 		dd		0x0
 numeroAux:
@@ -34,6 +41,21 @@ numeroImpar:
 		dd		0x0
 
 		section .text
+cargarCadena:
+		mov 	eax, [edi + strInicio]
+		mov 	[edi + cadena], eax
+		inc 	edi
+		cmp 	eax, 0
+		jne		cargarCadena
+		ret
+
+mostrarCadena:
+		push	cadena
+		push	fmtString
+		call	printf
+		add		esp, 8
+		ret
+
 leerNumero:
 		push 	numero
 		push 	fmtInt
@@ -68,8 +90,20 @@ mostrarSaltoDeLinea:
 		add 	esp, 4
 		ret
 
+salirDelPrograma:
+		mov 	ebx, 0
+		mov 	eax, 1
+		int 	80h
+		ret
+
 _start:
 main:
+		mov 	edi, 0
+
+iniciar:
+		call 	cargarCadena
+		call	mostrarCadena
+		call	mostrarSaltoDeLinea
 		call 	leerNumero
 		mov 	eax, [numero]
 		inc 	eax
@@ -128,5 +162,4 @@ main:
 				mov 	[numero], eax
 				call 	mostrarNumero
 				call 	mostrarSaltoDeLinea
-				push 	0
-				call 	exit
+				call 	salirDelPrograma
