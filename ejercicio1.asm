@@ -72,21 +72,11 @@ mostrarDivisor:
 		add		esp, 8
 		ret
 
-mostrarTabulado:
-		push	tabulado
-		call	printf
-		add		esp, 4
-		ret
-
 mostrarSaltoDeLinea:
 		push	fmtLF
 		call	printf
 		add		esp, 4
 		ret
-
-salirDelPrograma:
-		push	0
-		call	exit
 
 _start:
 main:
@@ -137,4 +127,5 @@ incrementar:
 salir:
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		call 	salirDelPrograma
+		push	0
+		call	exit
