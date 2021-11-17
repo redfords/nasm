@@ -34,12 +34,12 @@ strInicio:
 		db		"Ingresar 100 caracteres: ", 0
 
 		section .text
-cargarCadenaAux:
+cargarCadena2:
 		mov 	al, [edi + strInicio]
 		mov 	[edi + cadena], eax
 		inc 	edi
 		cmp 	al, 0
-		jne		cargarCadenaAux
+		jne		cargarCadena2
 		ret
 
 leerString:
@@ -60,7 +60,7 @@ main:
 		mov 	edi, 0
 
 iniciar:
-		call	cargarCadenaAux
+		call	cargarCadena2
 		call 	mostrarCadena
 		call 	mostrarSaltoDeLinea
 		call 	leerString
