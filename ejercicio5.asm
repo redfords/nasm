@@ -6,6 +6,8 @@
 ;		./ejercicio5
 ; ----------------------------------------------------------------------------------------
 
+%include        'funciones.asm'
+
 		global	main
 		global	_start
 		extern	scanf
@@ -13,11 +15,9 @@
 		extern	gets
 
 		section .bss
-cadenaTexto:
-		resb	0x0100
 cadena:
 		resb	0x0100
-cadenaTres:
+string:
 		resb	0x0100
 
 		section .data
@@ -28,42 +28,24 @@ fmtChar:
 		db		"%c", 0
 fmtLF:
 		db		0xA, 0
-auxiliar:
-		dd  		0x0
-auxiliarPrueba:
-		dd  		0x0
 caracter:
 		dd  		0x0
-strUno:
+strInicio:
 		db		"Ingresar 100 caracteres: ", 0
 
 		section .text
-cargarCadena:
-		mov 	al, [edi + strUno]
-		mov 	[edi + cadenaTexto], al
+cargarCadenaAux:
+		mov 	al, [edi + strInicio]
+		mov 	[edi + cadena], eax
 		inc 	edi
 		cmp 	al, 0
-		jne 	cargarCadena
+		jne		cargarCadenaAux
 		ret
 
-leerCadena:
-		push 	cadena
+leerString:
+		push 	string
 		call 	gets
 		add 	esp, 4
-		ret
-
-mostrarCadenaTexto:
-		push 	cadenaTexto
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarCadena:
-		push 	cadena
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
 		ret
 
 mostrarCaracter:
@@ -73,48 +55,29 @@ mostrarCaracter:
 		add 	esp, 8
 		ret
 
-mostrarAuxiliarPrueba:
-		push 	dword [auxiliarPrueba]
-		push 	fmtChar
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarSaltoDeLinea:
-		push 	fmtLF
-		call 	printf
-		add 	esp, 4
-		ret
-
-salirDelPrograma:
-		mov 	ebx, 0
-		mov 	eax, 1
-		int 	80h
-		ret
-
 _start:
 main:
 		mov 	edi, 0
 
 iniciar:
-		call	cargarCadena
-		call 	mostrarCadenaTexto
+		call	cargarCadenaAux
+		call 	mostrarCadena
 		call 	mostrarSaltoDeLinea
-		call 	leerCadena
+		call 	leerString
 		mov 	esi, 0
 		mov 	bl, 99
 		mov 	cl, 99
 
 bucle:
 		sub 	bl, 1
-		mov 	ah, [esi + cadena]
-		cmp 	ah, [esi + 1 + cadena]
+		mov 	ah, [esi + string]
+		cmp 	ah, [esi + 1 + string]
 		jl 		menorQue
 		jg 		mayorQue
 
 mayorQue:
-		xchg 	ah, [esi + 1 + cadena]
-		mov 	[esi + cadena], ah
+		xchg 	ah, [esi + 1 + string]
+		mov 	[esi + string], ah
 		add 	esi, 1
 		cmp 	bl, 0
 		je 		inicializar
@@ -127,8 +90,8 @@ menorQue:
 		jne 	bucle
 
 saltarRepetidos:
-		mov 	al, [edi + cadena]
-		mov 	ah, [edi + 1 + cadena]
+		mov 	al, [edi + string]
+		mov 	ah, [edi + 1 + string]
 		mov 	[caracter], al
 		inc 	edi
 		cmp 	al, ah
@@ -137,7 +100,7 @@ saltarRepetidos:
 
 imprimir:
 		call 	mostrarCaracter
-		mov 	al, [edi + cadena]
+		mov 	al, [edi + string]
 		cmp 	al, 0
 		je 		salir
 		jne 	saltarRepetidos
