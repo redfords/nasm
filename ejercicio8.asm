@@ -7,6 +7,8 @@
 ;		./ejercicio8
 ; ----------------------------------------------------------------------------------------
 
+%include        'funciones.asm'
+
 		global	main
 		global	_start
 		extern	scanf
@@ -49,27 +51,6 @@ tabulado:
 		db 		0x09, 0
 
 		section .text
-cargarCadena:
-		mov	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-		ret
-
-leerCadena:
-		push 	cadena
-		call 	gets
-		add 	esp, 4
-		ret 
-
-mostrarCadena:
-		push 	cadena
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
-		ret
-
 leerNumero:
 		push 	numero
 		push 	fmtInt
@@ -102,18 +83,6 @@ mostrarTabulado:
 		push 	tabulado
 		call 	printf
 		add 	esp, 4
-		ret
-
-mostrarSaltoDeLinea:
-		push 	fmtLF
-		call 	printf
-		add 	esp, 4
-		ret
-
-salirDelPrograma:
-		mov 	ebx, 0
-		mov 	eax, 1
-		int 	80h
 		ret
 
 ;matriz[i][j] = matriz[i * columnas + j] = indice matriz 1D
