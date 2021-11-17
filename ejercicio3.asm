@@ -6,6 +6,8 @@
 ;		./ejercicio3
 ; ----------------------------------------------------------------------------------------
 
+%include        'funciones.asm'  
+
 		global	main
 		global	_start
 		extern	scanf
@@ -36,27 +38,6 @@ strInicio:
 		db 		"Ingresar año: ", 0
 
 		section	.text
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne		cargarCadena
-		ret
-
-leerCadena:
-		push 	cadena
-		call 	gets
-		add 	esp, 4
-		ret 
-
-mostrarCadena:
-		push 	cadena
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
-		ret
-
 leerNumero:
 		push 	numero
 		push 	fmtInt
@@ -81,18 +62,6 @@ mostrarCaracter:
 mostrarResultado:
 		mov 	[caracter], cl
 		call 	mostrarCaracter
-		ret
-
-mostrarSaltoDeLinea:
-		push	fmtLF
-		call	printf
-		add		esp, 4
-		ret
-
-salirDelPrograma:
-		mov 	ebx, 0
-		mov 	eax, 1
-		int 	80h
 		ret
 
 _start:
