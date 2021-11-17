@@ -45,13 +45,6 @@ leerNumero:
 		add 	esp, 8
 		ret
 
-mostrarNumero:
-		push 	dword [numero]
-		push 	fmtInt
-		call 	printf
-		add 	esp, 8
-		ret
-
 mostrarCaracter:
 		push 	dword [caracter]
 		push 	fmtChar
