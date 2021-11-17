@@ -8,6 +8,8 @@
 ;		./ejercicio2
 ; ----------------------------------------------------------------------------------------
 
+%include        'funciones.asm'  
+
 		global	main
 		global	_start
 		extern	scanf
@@ -16,9 +18,9 @@
 		extern	exit
 
 		section	.bss                     
-cadena:
+string:
 		resb	0x0100
-cadenaTexto:
+cadena:
 		resb	0x0100
 caracter:
 		resb    1
@@ -35,31 +37,10 @@ strInicio:
 		db		"Ingresar cadena: ", 0          
 
 		section	.text
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadenaTexto], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne		cargarCadena
-		ret
-
-leerCadena:                      
-		push 	cadena
+leerString:                      
+		push 	string
 		call 	gets
 		add 	esp, 4
-		ret
-
-leerCadenaTexto:
-		push 	cadenaTexto
-		call 	gets
-		add 	esp, 4
-		ret 
-
-mostrarCadenaTexto:
-		push 	cadenaTexto
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
 		ret
 
 mostrarCaracter:                
@@ -69,31 +50,19 @@ mostrarCaracter:
 		add 	esp, 8
 		ret
 
-mostrarSaltoDeLinea:             
-		push 	fmtLF
-		call 	printf
-		add 	esp, 4
-		ret
-
-salirDelPrograma:
-		mov 	ebx, 0
-		mov 	eax, 1
-		int 	80h
-		ret
-
 _start:
 main:
 		mov 	edi, 0
 
 iniciar:
 		call	cargarCadena
-		call 	mostrarCadenaTexto
+		call 	mostrarCadena
 		call 	mostrarSaltoDeLinea
-		call 	leerCadena
+		call 	leerString
 		mov 	edi, 1               
 		mov 	eax, 0              
 seguir:
-		mov 	al, [cadena + edi]
+		mov 	al, [string + edi]
 		cmp 	al, 0
 		je 		seguirImpares
 		cmp 	al, 97              
