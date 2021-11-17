@@ -20,6 +20,8 @@
 ;		./ejercicio6
 ;----------------------------------------------------------------------------------------
 
+%include        'funciones.asm'
+
 		global	main
 		global	_start
 		extern	scanf
@@ -45,20 +47,10 @@ auxEcuacion:
 		dd 		0x0
 fmtString:
 		db		"%s", 0
-espacio:
-		db  		0x20, 0
 strInicio:
 		db		"Ingresar n: ", 0
 
 		section .text
-cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
-		inc 	edi
-		cmp 	eax, 0
-		jne 	cargarCadena
-		ret
-
 leerNumero:
 		push 	auxBucle
 		push 	fmtInt
@@ -73,37 +65,6 @@ mostrarNumero:
 		add 	esp, 8
 		ret
 
-leerCadena:
-		push 	cadena
-		call 	gets
-		add 	esp, 4
-		ret 
-
-mostrarCadena:
-		push 	cadena
-		push 	fmtString
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarEspacio:
-		push 	espacio
-		call 	printf
-		add 	esp, 4
-		ret
-
-mostrarSaltoDeLinea:
-		push 	fmtLF
-		call 	printf
-		add 	esp, 4
-		ret
-
-salirDelPrograma:
-		mov 	ebx, 0
-		mov 	eax, 1
-		int 	80h
-		ret
-
 _start:
 main:
 		mov 	edi, 0
@@ -116,7 +77,7 @@ iniciar:
 		mov 	eax, 1
 		mov 	[numero], eax
 		call 	mostrarNumero
-		call 	mostrarEspacio
+		call 	mostrarSaltoDeLinea
 		mov 	ebx, 1
 		mov 	[auxEcuacion], ebx
 
@@ -144,7 +105,7 @@ bucle:
 		sub 	eax, ecx
 		mov 	[numero], eax
 		call 	mostrarNumero
-		call 	mostrarEspacio
+		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxBucle]
 		mov 	ebx, [auxEcuacion]
 		cmp 	ebx, eax
