@@ -65,20 +65,6 @@ mostrarNumero:
 		add 	esp, 8
 		ret
 
-mostrarColumnas:
-		push 	dword [columnas]
-		push 	fmtInt
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarCaracter:
-		push 	dword [caracter]
-		push 	fmtChar
-		call 	printf
-		add 	esp, 8
-		ret
-
 mostrarTabulado:
 		push 	tabulado
 		call 	printf
