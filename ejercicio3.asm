@@ -17,10 +17,10 @@
 
 		section	.bss
 numero:
-		resd	1	; 1 dword (4 bytes)
+		resd	1
 caracter:
-		resb	1	; 1 byte(dato)
-		resb	3	; 3 bytes(relleno)
+		resb	1
+		resb	3
 cadena:
 		resb	0x0100
 
