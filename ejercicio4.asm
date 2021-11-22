@@ -100,7 +100,7 @@ iniciar:
 				div 	cl
 				cmp 	ah, 0
 				je 		sumarPares
-				jne 	sumarImpar
+				jne 	sumarImpares
 
 		sumarPares:
 				mov 	esi, [contadorDos]
@@ -114,7 +114,7 @@ iniciar:
 				jne 	bucle
 				jmp 	calcularPromedio
 
-		sumarImpar:
+		sumarImpares:
 				mov 	eax, [numeroAux]
 				add 	eax, [numeroImpar]
 				mov 	[numeroImpar], eax
