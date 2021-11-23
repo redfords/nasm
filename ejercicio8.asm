@@ -11,6 +11,7 @@
 
 		global	main
 		global	_start
+
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -45,7 +46,7 @@ fmtLF:
 		db		0xA, 0
 caracter:
 		dd		0x0
-strInicio:
+cadenaInicio:
 		db		"Ingresar el numero de filas y luego el de columnas: ", 0
 tabulado:
 		db 		0x09, 0
@@ -93,8 +94,7 @@ maximoNumMatriz:
 		mov 	eax, [filas]
 		mov 	ebx, [columnas]
 		mul 	ebx
-		mov 	[numero], eax
-			
+		mov 	[numero], eax	
 		mov 	eax, 1
 		mov 	esi, 0
 		mov 	ebx, [numero]
@@ -125,8 +125,8 @@ mostrarMatriz:
 		call 	mostrarNumero
 		call 	mostrarTabulado
 		inc 	esi
-		mov 	ecx, [columnas]
-		cmp 	edi, ecx
+		mov 	edx, [columnas]
+		cmp 	edi, edx
 		je 		inicializar2
 		inc 	edi
 		cmp 	esi, ebx
@@ -134,12 +134,12 @@ mostrarMatriz:
 
 transponerMatriz:
 		call 	mostrarSaltoDeLinea
+
 		largoBucle:
 				mov 	eax, [filas]
 				mov 	ebx, [columnas]
 				mul 	ebx
 				mov 	[largo], eax
-
 				mov 	eax, 0
 				mov 	[i], eax
 				mov 	eax, 0
@@ -152,8 +152,8 @@ transponerMatriz:
 				mov 	eax, [j]
 				mov 	ebx, [columnas]
 				mul 	ebx
-				mov 	ecx, [i]
-				add 	eax, ecx
+				mov 	edx, [i]
+				add 	eax, edx
 				inc 	eax
 				mov 	[numero], eax
 				call 	mostrarNumero
