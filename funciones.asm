@@ -2,10 +2,10 @@
 ; string
 
 cargarCadena:
-		mov 	eax, [edi + strInicio]
-		mov 	[edi + cadena], eax
+		mov 	al, [edi + strInicio]
+		mov 	[edi + cadena], al
 		inc 	edi
-		cmp 	eax, 0
+		cmp 	al, 0
 		jne		cargarCadena
 		ret
 
