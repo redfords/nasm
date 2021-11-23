@@ -45,7 +45,7 @@ leerNumero:
 		add		esp, 8
 		ret
 
-mostrarFactor:
+mostrarNumero:
 		push	dword [factor]
 		push	fmtInt
 		call	printf
@@ -78,7 +78,7 @@ bucleDos:
 		mov 	[auxiliar], eax
 		cmp 	edx, 0
 		jne 	incrementar	
-		call 	mostrarFactor
+		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxiliar]
 		mov 	[numero], eax
@@ -95,6 +95,6 @@ incrementar:
 
 salir:
 		mov		[factor], eax
-		call 	mostrarFactor
+		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
 		call	salirDelPrograma
