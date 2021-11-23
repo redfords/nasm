@@ -24,6 +24,7 @@
 
 		global	main
 		global	_start
+		
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -47,7 +48,7 @@ auxEcuacion:
 		dd 		0x0
 fmtString:
 		db		"%s", 0
-strInicio:
+cadenaInicio:
 		db		"Ingresar n: ", 0
 
 		section .text
