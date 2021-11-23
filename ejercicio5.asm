@@ -10,6 +10,7 @@
 
 		global	main
 		global	_start
+		
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -30,12 +31,12 @@ fmtLF:
 		db		0xA, 0
 caracter:
 		dd  		0x0
-strInicio:
+cadenaInicio:
 		db		"Ingresar 100 caracteres: ", 0
 
 		section .text
 cargarCadena2:
-		mov 	al, [edi + strInicio]
+		mov 	al, [edi + cadenaInicio]
 		mov 	[edi + cadena], eax
 		inc 	edi
 		cmp 	al, 0
@@ -65,54 +66,54 @@ iniciar:
 		call 	mostrarSaltoDeLinea
 		call 	leerString
 		mov 	esi, 0
-		mov 	bl, 99
-		mov 	cl, 99
+		mov 	ebx, 99
+		mov 	ecx, 99
 
 bucle:
-		sub 	bl, 1
+		sub 	ebx, 1
 		mov 	ah, [esi + string]
 		cmp 	ah, [esi + 1 + string]
-		jl 		menorQue
-		jg 		mayorQue
+		jl 		esMenor
+		jg 		esMayor
 
-mayorQue:
+esMayor:
 		xchg 	ah, [esi + 1 + string]
 		mov 	[esi + string], ah
 		add 	esi, 1
-		cmp 	bl, 0
+		cmp 	ebx, 0
 		je 		inicializar
 		jne 	bucle
 		
-menorQue:
+esMenor:
 		add 	esi, 1
-		cmp 	bl, 0
+		cmp 	ebx, 0
 		je 		inicializar
 		jne 	bucle
 
-saltarRepetidos:
+inicializar:
+		mov 	ebx, 99
+		mov 	esi, 0
+		sub 	ecx, 1
+		mov 	edi, 0
+		cmp 	ecx, 0
+		je 		saltearRepetido
+		jne 	bucle
+
+saltearRepetido:
 		mov 	al, [edi + string]
 		mov 	ah, [edi + 1 + string]
 		mov 	[caracter], al
 		inc 	edi
 		cmp 	al, ah
 		jl 		imprimir
-		je 		saltarRepetidos
+		je 		saltearRepetido
 
 imprimir:
 		call 	mostrarCaracter
 		mov 	al, [edi + string]
 		cmp 	al, 0
 		je 		salir
-		jne 	saltarRepetidos
-
-inicializar:
-		mov 	bl, 99
-		mov 	esi, 0
-		sub 	cl, 1
-		mov 	edi, 0
-		cmp 	cl, 0
-		je 		saltarRepetidos
-		jne 	bucle
+		jne 	saltearRepetido
 
 salir:
 		call 	mostrarSaltoDeLinea
