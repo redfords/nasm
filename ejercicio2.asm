@@ -69,20 +69,20 @@ recorrer:
 		je 		mostrarImpares
 		jne		imprimir       
 
-mostrarImpares:
-		test 	edi,1            
-		jp 		salir          
-		mov 	ebx,0x20             
-		mov 	[caracter],ebx      
-		call 	mostrarCaracter    
-		mov 	edi,0              
-		jmp 	recorrer          
-
 imprimir:                
 		mov 	[caracter], ebx      
 		call 	mostrarCaracter   
-		add 	edi,2               
-		jmp 	recorrer       
+		add 	edi, 2               
+		jmp 	recorrer   
+
+mostrarImpares:
+		test 	edi, 1            
+		jp 		salir          
+		mov 	ebx, 0x20             
+		mov 	[caracter],ebx      
+		call 	mostrarCaracter    
+		mov 	edi, 0              
+		jmp 	recorrer           
 
 salir:
 		call 	mostrarSaltoDeLinea
