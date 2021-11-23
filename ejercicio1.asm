@@ -11,6 +11,7 @@
 
 		global	main
 		global	_start
+
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -18,7 +19,7 @@
 		section	.bss
 numero:
 		resd	1
-divisor:
+factor:
 		resd	1
 auxiliar:
 		resd	1
@@ -33,7 +34,7 @@ fmtString:
 		db		"%s", 0                      
 fmtLF:
 		db		0xA, 0 
-strInicio:
+cadenaInicio:
 		db		"Ingresar numero: ", 0
 
 		section	.text
@@ -44,15 +45,15 @@ leerNumero:
 		add		esp, 8
 		ret
 
-mostrarNumero:
-		push	dword [numero]
+mostrarFactorPrimo:
+		push	dword [factor]
 		push	fmtInt
 		call	printf
 		add		esp, 8
 		ret
 
-mostrarDivisor:
-		push	dword [divisor]
+mostrarNumero:
+		push	dword [numero]
 		push	fmtInt
 		call	printf
 		add		esp, 8
@@ -68,35 +69,35 @@ iniciar:
 		call	mostrarSaltoDeLinea
 		call	leerNumero
 		mov 	eax, 2
-		mov 	[divisor], eax
+		mov 	[factor], eax
 
 bucleUno:
 		mov 	eax, [numero]
-		mov 	ebx, [divisor]
+		mov 	ebx, [factor]
 		cmp 	eax, ebx
 		jl 		salir
 	
 bucleDos:
 		mov 	eax, [numero]
 		mov 	edx, 0
-		mov 	ecx, [divisor]
+		mov 	ecx, [factor]
 		idiv 	ecx
 		mov 	[auxiliar], eax
 		cmp 	edx, 0
 		jne 	incrementar	
-		call 	mostrarDivisor
+		call 	mostrarFactorPrimo
 		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxiliar]
 		mov 	[numero], eax
-		mov 	ebx, [divisor]
+		mov 	ebx, [factor]
 		inc 	ebx
-		mov 	[divisor], ebx
+		mov 	[factor], ebx
 		jmp 	bucleUno
 
 incrementar:
-		mov 	eax, [divisor]
+		mov 	eax, [factor]
 		inc 	eax
-		mov 	[divisor], eax
+		mov 	[factor], eax
 		jmp 	bucleUno
 
 salir:
