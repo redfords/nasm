@@ -11,6 +11,7 @@
 
 		global	main
 		global	_start
+
 		extern	scanf
 		extern	printf
 
@@ -25,7 +26,7 @@ fmtString:
 		db		"%s", 0    
 fmtLF:
 		db		0xA, 0
-strInicio:
+cadenaInicio:
 		db		"Ingresar N y luego N numeros: ", 0
 numero:
 		dd		0x0
@@ -37,8 +38,6 @@ contadorDos:
 		dd		0x0
 numeroPar:
 		dd		0x0
-promedio:
-		dd  		0x0
 numeroImpar:
 		dd		0x0
 
@@ -52,20 +51,6 @@ leerNumero:
 
 mostrarNumero:
 		push 	dword [numero]
-		push 	fmtInt
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarPromedio:
-		push 	dword [promedio]
-		push 	fmtInt
-		call 	printf
-		add 	esp, 8
-		ret
-
-mostrarNumeroPar:
-		push 	dword [numeroPar]
 		push 	fmtInt
 		call 	printf
 		add 	esp, 8
@@ -87,54 +72,54 @@ iniciar:
 		mov 	[contadorDos], eax
 		call 	mostrarSaltoDeLinea
 
-		bucle:
-				mov 	esi, [contadorUno]
-				dec 	esi
-				mov 	[contadorUno], esi
-				cmp 	esi, 0
-				je 		calcularPromedio
-				call 	leerNumero
-				mov 	eax, [numero]
-				mov 	[numeroAux], eax
-				mov 	cl, 2
-				div 	cl
-				cmp 	ah, 0
-				je 		sumarPares
-				jne 	sumarImpares
+bucle:
+		mov 	esi, [contadorUno]
+		dec 	esi
+		mov 	[contadorUno], esi
+		cmp 	esi, 0
+		je 		calcularPromedio
+		call 	leerNumero
+		mov 	eax, [numero]
+		mov 	[numeroAux], eax
+		mov 	bh, 2
+		div 	bh
+		cmp 	ah, 0
+		je 		sumarPares
+		jne 	sumarImpares
 
-		sumarPares:
-				mov 	esi, [contadorDos]
-				inc 	esi
-				mov 	[contadorDos], esi
-				add 	eax, eax
-				add 	eax, [numeroPar]
-				mov 	[numeroPar], eax
-				mov 	edi, [contadorUno]
-				cmp 	edi, 0
-				jne 	bucle
-				jmp 	calcularPromedio
+sumarPares:
+		mov 	esi, [contadorDos]
+		inc 	esi
+		mov 	[contadorDos], esi
+		add 	eax, eax
+		add 	eax, [numeroPar]
+		mov 	[numeroPar], eax
+		mov 	edi, [contadorUno]
+		cmp 	edi, 0
+		jne 	bucle
+		jmp 	calcularPromedio
 
-		sumarImpares:
-				mov 	eax, [numeroAux]
-				add 	eax, [numeroImpar]
-				mov 	[numeroImpar], eax
-				mov 	esi, [contadorUno]
-				cmp 	esi, 0
-				jne 	bucle
-		
-		calcularPromedio:
-				mov 	eax, [numeroPar]
-				mov 	edx, 0
-				mov 	ecx, [contadorDos]
-				idiv 	ecx
-				mov 	[promedio], eax
+sumarImpares:
+		mov 	eax, [numeroAux]
+		add 	eax, [numeroImpar]
+		mov 	[numeroImpar], eax
+		mov 	esi, [contadorUno]
+		cmp 	esi, 0
+		jne 	bucle
 
-		salir:				
-				call 	mostrarSaltoDeLinea
-				call 	mostrarPromedio
-				call 	mostrarSaltoDeLinea
-				mov 	eax, [numeroImpar]
-				mov 	[numero], eax
-				call 	mostrarNumero
-				call 	mostrarSaltoDeLinea
-				call 	salirDelPrograma
+calcularPromedio:
+		mov 	eax, [numeroPar]
+		mov 	edx, 0
+		mov 	ecx, [contadorDos]
+		idiv 	ecx
+		mov 	[numero], eax
+
+salir:				
+		call 	mostrarSaltoDeLinea
+		call 	mostrarNumero
+		call 	mostrarSaltoDeLinea
+		mov 	eax, [numeroImpar]
+		mov 	[numero], eax
+		call 	mostrarNumero
+		call 	mostrarSaltoDeLinea
+		call 	salirDelPrograma
