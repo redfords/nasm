@@ -12,6 +12,7 @@
 
 		global	main
 		global	_start
+
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -33,7 +34,7 @@ fmtChar:
 		db		"%c", 0            
 fmtLF:
 		db		0xA, 0
-strInicio:
+cadenaInicio:
 		db		"Ingresar cadena: ", 0          
 
 		section	.text
@@ -60,30 +61,28 @@ iniciar:
 		call 	mostrarSaltoDeLinea
 		call 	leerString
 		mov 	edi, 1               
-		mov 	eax, 0              
-seguir:
-		mov 	al, [string + edi]
-		cmp 	al, 0
-		je 		seguirImpares
-		cmp 	al, 97              
-		jb 		imprimir
-		cmp 	al, 122
-		ja 		imprimir   
+		mov 	eax, 0
 
-imprimir:                
-		mov 	[caracter], al      
-		call 	mostrarCaracter   
-		add 	edi,2               
-		jmp 	seguir              
+recorrer:
+		mov 	ebx, [string + edi]
+		cmp 	ebx, 0
+		je 		mostrarImpares
+		jne		imprimir       
 
-seguirImpares:
+mostrarImpares:
 		test 	edi,1            
 		jp 		salir          
-		mov 	al,0x20             
-		mov 	[caracter],al      
+		mov 	ebx,0x20             
+		mov 	[caracter],ebx      
 		call 	mostrarCaracter    
 		mov 	edi,0              
-		jmp 	seguir             
+		jmp 	recorrer          
+
+imprimir:                
+		mov 	[caracter], ebx      
+		call 	mostrarCaracter   
+		add 	edi,2               
+		jmp 	recorrer       
 
 salir:
 		call 	mostrarSaltoDeLinea
