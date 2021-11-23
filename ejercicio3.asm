@@ -10,6 +10,7 @@
 
 		global	main
 		global	_start
+
 		extern	scanf
 		extern	printf
 		extern	gets
@@ -34,7 +35,7 @@ fmtString:
 fmtLF:
 		db 		0xA, 0
 
-strInicio:
+cadenaInicio:
 		db 		"Ingresar año: ", 0
 
 		section	.text
@@ -53,7 +54,7 @@ mostrarCaracter:
 		ret
 
 mostrarResultado:
-		mov 	[caracter], cl
+		mov 	[caracter], ebx
 		call 	mostrarCaracter
 		ret
 
@@ -67,42 +68,4 @@ iniciar:
 		call 	mostrarSaltoDeLinea
 		call 	leerNumero
 		mov 	eax, [numero]
-		mov 	edx, 0
-		mov 	ecx, 4
-
-divisible4:
-		div 	ecx
-		cmp 	edx, 0
-		je 		noDivisible100
-		jne 	noEsBisiesto
-
-
-noDivisible100:
-		mov 	eax, [numero]
-		mov 	ecx, 100
-		div 	ecx
-		cmp 	edx, 0
-		jne 	esBisiesto
-		je 		divisible400
-
-divisible400:
-		mov 	eax, [numero]
-		mov 	ecx, 400
-		div 	ecx
-		cmp 	edx, 0
-		je 		esBisiesto
-		jne 	noEsBisiesto
-
-esBisiesto:
-		mov 	cl, 83
-		call	mostrarResultado
-		jmp		salir
-
-noEsBisiesto:
-		mov 	cl, 78
-		call	mostrarResultado
-		jmp		salir
-
-salir:
-		call 	mostrarSaltoDeLinea
-		call	salirDelPrograma
+	
