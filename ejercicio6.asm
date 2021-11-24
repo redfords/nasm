@@ -78,11 +78,11 @@ iniciar:
 		mov 	eax, 1
 		mov 	[numero], eax
 		call 	mostrarNumero
-		call 	mostrarSaltoDeLinea
 		mov 	ebx, 1
 		mov 	[auxEcuacion], ebx
 
 bucle:
+		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxEcuacion]
 		add 	eax, 1
 		mov 	[auxEcuacion], eax
@@ -106,7 +106,6 @@ bucle:
 		sub 	eax, ecx
 		mov 	[numero], eax
 		call 	mostrarNumero
-		call 	mostrarSaltoDeLinea
 		mov 	eax, [auxBucle]
 		mov 	ebx, [auxEcuacion]
 		cmp 	ebx, eax
