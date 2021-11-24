@@ -114,12 +114,14 @@ calcularPromedio:
 		idiv 	ecx
 		mov 	[numero], eax
 
-salir:				
+mostrarResultado:				
 		call 	mostrarSaltoDeLinea
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
 		mov 	eax, [numeroImpar]
 		mov 	[numero], eax
 		call 	mostrarNumero
+		
+salir:
 		call 	mostrarSaltoDeLinea
 		call 	salirDelPrograma
