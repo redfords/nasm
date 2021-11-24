@@ -87,12 +87,10 @@ iniciar:
 		mov 	eax, [numero]
 		mov 	[filas], eax
 		call 	leerNumero
-		mov 	eax, [numero]
-		mov 	[columnas], eax
+		mov 	ebx, [numero]
+		mov 	[columnas], ebx
 
 maximoNumMatriz:
-		mov 	eax, [filas]
-		mov 	ebx, [columnas]
 		mul 	ebx
 		mov 	[numero], eax	
 		mov 	eax, 1
@@ -135,53 +133,53 @@ mostrarMatriz:
 transponerMatriz:
 		call 	mostrarSaltoDeLinea
 
-		largoBucle:
-				mov 	eax, [filas]
-				mov 	ebx, [columnas]
-				mul 	ebx
-				mov 	[largo], eax
-				mov 	eax, 0
-				mov 	[i], eax
-				mov 	eax, 0
-				mov 	[j], eax
+largoBucle:
+		mov 	eax, [filas]
+		mov 	ebx, [columnas]
+		mul 	ebx
+		mov 	[largo], eax
+		mov 	eax, 0
+		mov 	[i], eax
+		mov 	eax, 0
+		mov 	[j], eax
 
-		bucle:
-				mov 	eax, [largo]
-				cmp 	eax, 0
-				je 		salir
-				mov 	eax, [j]
-				mov 	ebx, [columnas]
-				mul 	ebx
-				mov 	edx, [i]
-				add 	eax, edx
-				inc 	eax
-				mov 	[numero], eax
-				call 	mostrarNumero
-				call 	mostrarTabulado
-				mov 	eax, [j]
-				inc 	eax
-				mov 	[j], eax
-				mov 	ebx, [j]
-				mov 	eax, [filas]
-				cmp 	ebx, eax
-				jge 	if
-				mov 	eax, [largo]
-				dec 	eax
-				mov 	[largo], eax
-				jge 	bucle
+bucle:
+		mov 	eax, [largo]
+		cmp 	eax, 0
+		je 		salir
+		mov 	eax, [j]
+		mov 	ebx, [columnas]
+		mul 	ebx
+		mov 	edx, [i]
+		add 	eax, edx
+		inc 	eax
+		mov 	[numero], eax
+		call 	mostrarNumero
+		call 	mostrarTabulado
+		mov 	eax, [j]
+		inc 	eax
+		mov 	[j], eax
+		mov 	ebx, [j]
+		mov 	eax, [filas]
+		cmp 	ebx, eax
+		jge 	if
+		mov 	eax, [largo]
+		dec 	eax
+		mov 	[largo], eax
+		jge 	bucle
 
-		if:
-				mov 	eax, [i]
-				inc 	eax
-				mov 	[i], eax
-				mov 	eax, 0
-				mov 	[j], eax
-				call	mostrarSaltoDeLinea
-				call 	mostrarSaltoDeLinea
-				mov 	eax, [largo]
-				dec 	eax
-				mov 	[largo], eax
-				jmp 	bucle
+if:
+		mov 	eax, [i]
+		inc 	eax
+		mov 	[i], eax
+		mov 	eax, 0
+		mov 	[j], eax
+		call	mostrarSaltoDeLinea
+		call 	mostrarSaltoDeLinea
+		mov 	eax, [largo]
+		dec 	eax
+		mov 	[largo], eax
+		jmp 	bucle
 
 salir:
 		call 	mostrarSaltoDeLinea
