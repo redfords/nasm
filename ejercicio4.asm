@@ -30,7 +30,7 @@ cadenaInicio:
 		db		"Ingresar N y luego N numeros: ", 0
 numero:
 		dd		0x0
-numeroAux:
+auxiliar:
 		dd		0x0
 contadorUno:
 		dd		0x0
@@ -80,7 +80,7 @@ bucle:
 		je 		calcularPromedio
 		call 	leerNumero
 		mov 	eax, [numero]
-		mov 	[numeroAux], eax
+		mov 	[auxiliar], eax
 		mov 	bh, 2
 		div 	bh
 		cmp 	ah, 0
@@ -100,7 +100,7 @@ sumarPares:
 		jmp 	calcularPromedio
 
 sumarImpares:
-		mov 	eax, [numeroAux]
+		mov 	eax, [auxiliar]
 		add 	eax, [numeroImpar]
 		mov 	[numeroImpar], eax
 		mov 	esi, [contadorUno]
