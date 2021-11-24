@@ -68,4 +68,42 @@ iniciar:
 		call 	mostrarSaltoDeLinea
 		call 	leerNumero
 		mov 	eax, [numero]
-	
+		mov 	edx, 0
+		mov 	ecx, 4
+
+divisible4:
+		div 	ecx
+		cmp 	edx, 0
+		je 		noDivisible100
+		jne 	noEsBisiesto
+
+
+noDivisible100:
+		mov 	eax, [numero]
+		mov 	ecx, 100
+		div 	ecx
+		cmp 	edx, 0
+		jne 	esBisiesto
+		je 		divisible400
+
+divisible400:
+		mov 	eax, [numero]
+		mov 	ecx, 400
+		div 	ecx
+		cmp 	edx, 0
+		je 		esBisiesto
+		jne 	noEsBisiesto
+
+esBisiesto:
+		mov 	ebx, 115
+		call	mostrarResultado
+		jmp		salir
+
+noEsBisiesto:
+		mov 	ebx, 110
+		call	mostrarResultado
+		jmp		salir
+
+salir:
+		call 	mostrarSaltoDeLinea
+		call	salirDelPrograma
