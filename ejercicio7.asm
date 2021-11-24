@@ -144,43 +144,43 @@ rotarMatriz:
 		dec 	eax
 		mov 	[j], eax
 
-		bucle:
-				mov 	eax, [largo]
-				cmp 	eax, 0
-				je 		salir
-				mov 	eax, [j]
-				mov 	ebx, [columnas]
-				mul 	ebx
-				mov 	edx, [i]
-				add 	eax, edx
-				inc 	eax
-				mov 	[numero], eax
-				call 	mostrarNumero
-				call 	mostrarTabulado
-				mov 	eax, [j]
-				dec 	eax
-				mov 	[j], eax
-				mov 	ebx, [j]
-				cmp 	ebx, 0
-				jl 		if
-				mov 	eax, [largo]
-				dec 	eax
-				mov 	[largo], eax
-				jge 	bucle
+bucle:
+		mov 	eax, [largo]
+		cmp 	eax, 0
+		je 		salir
+		mov 	eax, [j]
+		mov 	ebx, [columnas]
+		mul 	ebx
+		mov 	edx, [i]
+		add 	eax, edx
+		inc 	eax
+		mov 	[numero], eax
+		call 	mostrarNumero
+		call 	mostrarTabulado
+		mov 	eax, [j]
+		dec 	eax
+		mov 	[j], eax
+		mov 	ebx, [j]
+		cmp 	ebx, 0
+		jl 		if
+		mov 	eax, [largo]
+		dec 	eax
+		mov 	[largo], eax
+		jge 	bucle
 
-		if:
-				mov 	eax, [i]
-				inc 	eax
-				mov 	[i], eax
-				mov 	eax, [filas]
-				dec 	eax
-				mov 	[j], eax
-				call	mostrarSaltoDeLinea
-				call 	mostrarSaltoDeLinea
-				mov 	eax, [largo]
-				dec 	eax
-				mov 	[largo], eax
-				jmp 	bucle
+if:
+		mov 	eax, [i]
+		inc 	eax
+		mov 	[i], eax
+		mov 	eax, [filas]
+		dec 	eax
+		mov 	[j], eax
+		call	mostrarSaltoDeLinea
+		call 	mostrarSaltoDeLinea
+		mov 	eax, [largo]
+		dec 	eax
+		mov 	[largo], eax
+		jmp 	bucle
 
 salir:
 		call 	mostrarSaltoDeLinea
