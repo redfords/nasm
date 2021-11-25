@@ -78,8 +78,8 @@ bucle:
 		mov 	[cociente], eax
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [cociente]
-		mov 	[numero], eax
+		mov 	ecx, [cociente]
+		mov 	[numero], ecx
 		mov 	ebx, [factor]
 		inc 	ebx
 		mov 	[factor], ebx
