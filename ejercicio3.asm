@@ -21,7 +21,6 @@ numero:
 		resd	1
 caracter:
 		resb	1
-		resb	3
 cadena:
 		resb	0x0100
 
