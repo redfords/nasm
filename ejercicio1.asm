@@ -21,7 +21,7 @@ numero:
 		resd	1
 factor:
 		resd	1
-auxiliar:
+cociente:
 		resd	1
 cadena:
 		resb	0x0100
@@ -75,12 +75,12 @@ esFactor:
 		mov 	eax, [numero]
 		mov 	ecx, [factor]
 		idiv 	ecx
-		mov 	[auxiliar], eax
+		mov 	[cociente], eax
 		cmp 	edx, 0
 		jne 	incrementar	
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [auxiliar]
+		mov 	eax, [cociente]
 		mov 	[numero], eax
 		mov 	ebx, [factor]
 		inc 	ebx
