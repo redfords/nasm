@@ -25,7 +25,6 @@ cadena:
 		resb	0x0100
 caracter:
 		resb    1
-		resb    3
 
 		section	.data                    
 fmtString:
@@ -63,26 +62,24 @@ iniciar:
 		mov 	edi, 1               
 		mov 	eax, 0
 
-recorrer:
+recorrerString:
 		mov 	ebx, [string + edi]
 		cmp 	ebx, 0
-		je 		mostrarImpares
+		je 		cambiarAImpares
 		jne		imprimir       
 
 imprimir:                
 		mov 	[caracter], ebx      
 		call 	mostrarCaracter   
 		add 	edi, 2               
-		jmp 	recorrer   
+		jmp 	recorrerString   
 
-mostrarImpares:
+cambiarAImpares:
 		test 	edi, 1            
-		jp 		salir          
-		mov 	ebx, 0x20             
-		mov 	[caracter],ebx      
-		call 	mostrarCaracter    
+		jp 		salir  
+		call 	mostrarSaltoDeLinea    
 		mov 	edi, 0              
-		jmp 	recorrer           
+		jmp 	recorrerString           
 
 salir:
 		call 	mostrarSaltoDeLinea
