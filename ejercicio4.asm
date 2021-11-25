@@ -30,15 +30,15 @@ cadenaInicio:
 		db		"Ingresar N y luego N numeros: ", 0
 numero:
 		dd		0x0
-auxiliar:
-		dd		0x0
-contadorUno:
-		dd		0x0
-contadorDos:
-		dd		0x0
 numeroPar:
 		dd		0x0
-numeroImpar:
+auxiliar:
+		dd		0x0
+contNumeros:
+		dd		0x0
+contPares:
+		dd		0x0
+suma:
 		dd		0x0
 
 		section .text
@@ -67,15 +67,14 @@ iniciar:
 		call 	leerNumero
 		mov 	eax, [numero]
 		inc 	eax
-		mov 	[contadorUno], eax
+		mov 	[contNumeros], eax
 		mov 	eax, 0
-		mov 	[contadorDos], eax
-		call 	mostrarSaltoDeLinea
+		mov 	[contPares], eax
 
 bucle:
-		mov 	esi, [contadorUno]
+		mov 	esi, [contNumeros]
 		dec 	esi
-		mov 	[contadorUno], esi
+		mov 	[contNumeros], esi
 		cmp 	esi, 0
 		je 		calcularPromedio
 		call 	leerNumero
@@ -88,37 +87,44 @@ bucle:
 		jne 	sumarImpares
 
 sumarPares:
-		mov 	esi, [contadorDos]
+		mov 	esi, [contPares]
 		inc 	esi
-		mov 	[contadorDos], esi
+		mov 	[contPares], esi
 		add 	eax, eax
 		add 	eax, [numeroPar]
 		mov 	[numeroPar], eax
-		mov 	edi, [contadorUno]
+		mov 	edi, [contNumeros]
 		cmp 	edi, 0
 		jne 	bucle
 		jmp 	calcularPromedio
 
 sumarImpares:
-		mov 	eax, [auxiliar]
-		add 	eax, [numeroImpar]
-		mov 	[numeroImpar], eax
-		mov 	esi, [contadorUno]
+		mov 	ecx, [auxiliar]
+		add 	ecx, [suma]
+		mov 	[suma], ecx
+		mov 	esi, [contNumeros]
 		cmp 	esi, 0
 		jne 	bucle
 
 calcularPromedio:
+		mov 	ecx, [contPares]
+		cmp 	ecx, 0
+		je 		noHayPares
 		mov 	eax, [numeroPar]
 		mov 	edx, 0
-		mov 	ecx, [contadorDos]
 		idiv 	ecx
+		mov 	[numero], eax
+		jmp 	mostrarResultado
+
+noHayPares:
+		mov 	eax, 0
 		mov 	[numero], eax
 
 mostrarResultado:				
 		call 	mostrarSaltoDeLinea
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [numeroImpar]
+		mov 	eax, [suma]
 		mov 	[numero], eax
 		call 	mostrarNumero
 		
