@@ -73,16 +73,16 @@ esMayor:
 		mov 	[esi + string], ah
 		add 	esi, 1
 		cmp 	ebx, 0
-		je 		inicializar
+		je 		seguir
 		jne 	bucle
 		
 esMenor:
 		add 	esi, 1
 		cmp 	ebx, 0
-		je 		inicializar
+		je 		seguir
 		jne 	bucle
 
-inicializar:
+seguir:
 		mov 	ebx, 99
 		mov 	esi, 0
 		sub 	ecx, 1
