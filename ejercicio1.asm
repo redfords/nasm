@@ -64,15 +64,15 @@ iniciar:
 		mov 	eax, 2
 		mov 	[factor], eax
 
-bucleUno:
+bucle:
 		mov 	eax, [numero]
 		mov 	ebx, [factor]
 		cmp 	eax, ebx
 		jl 		salir
 	
-bucleDos:
-		mov 	eax, [numero]
+esFactor:
 		mov 	edx, 0
+		mov 	eax, [numero]
 		mov 	ecx, [factor]
 		idiv 	ecx
 		mov 	[auxiliar], eax
@@ -85,13 +85,13 @@ bucleDos:
 		mov 	ebx, [factor]
 		inc 	ebx
 		mov 	[factor], ebx
-		jmp 	bucleUno
+		jmp 	bucle
 
 incrementar:
 		mov 	eax, [factor]
 		inc 	eax
 		mov 	[factor], eax
-		jmp 	bucleUno
+		jmp 	bucle
 
 salir:
 		mov		[factor], eax
