@@ -69,15 +69,13 @@ bucle:
 		mov 	ebx, [factor]
 		cmp 	eax, ebx
 		jl 		salir
-	
-esFactor:
 		mov 	edx, 0
 		mov 	eax, [numero]
 		mov 	ecx, [factor]
 		idiv 	ecx
-		mov 	[cociente], eax
 		cmp 	edx, 0
-		jne 	incrementar	
+		jne 	incrementar
+		mov 	[cociente], eax
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
 		mov 	eax, [cociente]
