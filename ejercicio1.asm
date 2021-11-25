@@ -61,8 +61,8 @@ iniciar:
 		call	mostrarCadena
 		call	mostrarSaltoDeLinea
 		call	leerNumero
-		mov 	eax, 2
-		mov 	[factor], eax
+		mov 	ecx, 2
+		mov 	[factor], ecx
 
 bucle:
 		mov 	eax, [numero]
