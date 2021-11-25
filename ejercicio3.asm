@@ -69,27 +69,26 @@ iniciar:
 		call 	leerNumero
 		mov 	eax, [numero]
 		mov 	edx, 0
-		mov 	ecx, 4
 
-divisible4:
-		div 	ecx
+esDivisible4:
+		mov 	ebx, 4
+		div 	ebx
 		cmp 	edx, 0
-		je 		noDivisible100
+		je 		esDivisible100
 		jne 	noEsBisiesto
 
-
-noDivisible100:
+esDivisible100:
 		mov 	eax, [numero]
-		mov 	ecx, 100
-		div 	ecx
+		mov 	ebx, 100
+		div 	ebx
 		cmp 	edx, 0
 		jne 	esBisiesto
-		je 		divisible400
+		je 		esDivisible400
 
-divisible400:
+esDivisible400:
 		mov 	eax, [numero]
-		mov 	ecx, 400
-		div 	ecx
+		mov 	ebx, 400
+		div 	ebx
 		cmp 	edx, 0
 		je 		esBisiesto
 		jne 	noEsBisiesto
