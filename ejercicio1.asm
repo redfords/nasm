@@ -86,9 +86,9 @@ bucle:
 		jmp 	bucle
 
 incrementar:
-		mov 	eax, [factor]
-		inc 	eax
-		mov 	[factor], eax
+		mov 	ecx, [factor]
+		inc 	ecx
+		mov 	[factor], ecx
 		jmp 	bucle
 
 salir:
