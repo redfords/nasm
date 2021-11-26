@@ -2,19 +2,6 @@
 ; Se ingresa N. La computadora muestra los primeros N términos de la Secuencia de
 ; Connell.
 ;
-; 1
-; 2 4
-; 5 7 9
-; 10 12 14 16
-; 17 19 21 23 25
-; 26 28 30 32 34 36
-; 37 39 41 43 45 47 49
-; 50 52 54 56 58 60 62 64
-; 65 67 69 71 73 75 77 79 81
-; 82 84 86 88 90 92 94 96 98 100
-; 101 103 105 107 109 111 113 115 117 119 121
-; 122
-; 
 ; 		nasm -f elf ejercicio6.asm
 ;		ld -m elf_i386 -s -o ejercicio6 ejercicio6.o -lc -I /lib/ld-linux.so.2
 ;		./ejercicio6
@@ -32,7 +19,13 @@
 		section .bss
 numero:
 		resd 	1
-auxBucle:
+max:
+		resd 	1
+contNum:
+		resd 	1
+contLinea:
+		resd 	1
+linea:
 		resd 	1
 cadena:
 		resb	0x0100
@@ -42,10 +35,6 @@ fmtInt:
 		db		"%d", 0
 fmtLF:
 		db		0xA, 0
-auxiliar:
-		dd 		0x0
-auxEcuacion:
-		dd 		0x0
 fmtString:
 		db		"%s", 0
 cadenaInicio:
@@ -53,7 +42,7 @@ cadenaInicio:
 
 		section .text
 leerNumero:
-		push 	auxBucle
+		push 	max
 		push 	fmtInt
 		call 	scanf
 		add 	esp, 8
@@ -78,56 +67,64 @@ iniciar:
 		mov 	eax, 1
 		mov 	[numero], eax
 		call 	mostrarNumero
-		mov 	ebx, 1
-		mov 	[auxEcuacion], ebx
-
-bucle:
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [auxEcuacion]
-		add 	eax, 1
-		mov 	[auxEcuacion], eax
-		mov 	ebx, 8
-		imul 	ebx
-		mov 	ebx, 7
-		sub 	eax, ebx
-		mov 	[auxiliar], eax
-		mov 	ebx, 1
-		call 	raizCuadrada
+		mov 	ebx, [max]
+		cmp 	eax, ebx
+		je 		salir
+		mov 	eax, 1
+		mov 	[contNum], eax
+		mov 	eax, 0
+		mov 	[contLinea], eax
+		mov 	eax, 1
+		mov 	[linea], eax
+
+bucleUno:
+		mov 	eax, [contNum]
+		mov 	ebx, [max]
+		cmp 	eax, ebx
+		jge		salir
 		mov 	eax, [numero]
-		add 	eax, 1
-		mov 	ebx, 2
-		mov 	edx, 0
-		idiv 	ebx
-		mov 	[numero], eax
-		mov 	eax, 2
-		mov 	ebx, [auxEcuacion]
-		imul 	ebx
-		mov 	ecx, [numero]
-		sub 	eax, ecx
+		inc 	eax
 		mov 	[numero], eax
 		call 	mostrarNumero
-		mov 	eax, [auxBucle]
-		mov 	ebx, [auxEcuacion]
-		cmp 	ebx, eax
-		jl 		bucle
-		je 		salir
+		call 	mostrarSaltoDeLinea
+		mov 	eax, [contNum]
+		inc 	eax
+		mov 	[contNum], eax
+		mov 	ebx, [max]
+		cmp 	eax, ebx
+		jge		salir
+		jmp 	bucleDos
 
-raizCuadrada:
-		inc 	ebx
-		mov 	[numero], ebx
-		mov 	eax, ebx
-		imul 	eax
-		mov 	edx, [auxiliar]
-		cmp 	eax, edx
-		jl 		raizCuadrada
-		jg 		esMayor
-		ret
-
-esMayor:
+bucleDos:
+		mov 	eax, [contLinea]
+		mov 	ebx, [linea]
+		cmp 	eax, ebx
+		jge 	incrementar
 		mov 	eax, [numero]
-		sub 	eax, 1
+		mov 	ebx, 2
+		add 	eax, ebx
 		mov 	[numero], eax
-		ret
+		call 	mostrarNumero
+		call 	mostrarSaltoDeLinea
+		mov 	eax, [contNum]
+		inc 	eax
+		mov 	[contNum], eax
+		mov 	ebx, [max]
+		cmp 	eax, ebx
+		jge		salir
+		mov 	ecx, [contLinea]
+		inc 	ecx
+		mov 	[contLinea], ecx
+		jmp 	bucleDos
+
+incrementar:
+		mov 	eax, 0
+		mov 	[contLinea], eax
+		mov 	eax, [linea]
+		inc 	eax
+		mov 	[linea], eax
+		jmp 	bucleUno
 
 salir:
 		call 	mostrarSaltoDeLinea
