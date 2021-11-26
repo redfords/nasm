@@ -72,8 +72,6 @@ mostrarTabulado:
 		add 	esp, 4
 		ret
 
-;matriz[i][j] = matriz[i * columnas + j] = indice matriz 1D
-	
 _start:
 main:
 		mov 	edi, 0
