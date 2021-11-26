@@ -156,13 +156,13 @@ bucle:
 		mov 	ebx, [j]
 		mov 	eax, [filas]
 		cmp 	ebx, eax
-		jge 	pasarAFilaSig
+		jge 	incrementar
 		mov 	eax, [totalCeldas]
 		dec 	eax
 		mov 	[totalCeldas], eax
 		jge 	bucle
 
-pasarAFilaSig:
+incrementar:
 		mov 	eax, [i]
 		inc 	eax
 		mov 	[i], eax
