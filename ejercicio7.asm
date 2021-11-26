@@ -23,11 +23,11 @@ filas:
 		resd	1
 columnas:
 		resd	1
-largo:
-		resd	1
 i:
 		resd	1
 j:
+		resd	1
+totalCeldas:
 		resd	1
 matriz:
 		resd	100
@@ -89,30 +89,26 @@ iniciar:
 		mov 	eax, [numero]
 		mov 	[columnas], eax
 
-maximoNumMatriz:
+calcularTotal:
 		mov 	eax, [filas]
-		mov 	ebx, [columnas]
-		mul 	ebx
-		mov 	[numero], eax
-	
-		mov 	eax, 1
+		mov 	ecx, [columnas]
+		mul 	ecx
+		mov 	[totalCeldas], eax
+		mov 	ebx, [totalCeldas]
 		mov 	esi, 0
-		mov 	ebx, [numero]
+		mov 	eax, 1
 
-cargarMatriz:
-		mov 	[esi*4 + matriz], eax
-		inc 	eax
+iniciarValores:
+		mov 	[esi * 4 + matriz], eax
 		inc 	esi
+		inc 	eax
 		cmp 	esi, ebx
-		jne 	cargarMatriz
-
-inicializar:
+		jne 	iniciarValores
 		mov 	esi, 0
 		mov 	edi, 1	
-		call 	mostrarSaltoDeLinea		
 		jmp 	mostrarMatriz
 
-inicializar2:
+compararTotal:
 		call 	mostrarSaltoDeLinea
 		call 	mostrarSaltoDeLinea
 		mov 	edi, 1
@@ -120,14 +116,14 @@ inicializar2:
 		je 		rotarMatriz
 
 mostrarMatriz:
-		mov 	eax, [esi*4 + matriz]
+		mov 	eax, [esi * 4 + matriz]
 		mov 	[numero], eax
 		call 	mostrarNumero
 		call 	mostrarTabulado
 		inc 	esi
 		mov 	edx, [columnas]
 		cmp 	edi, edx
-		je 		inicializar2
+		je 		compararTotal
 		inc 	edi
 		cmp 	esi, ebx
 		jne 	mostrarMatriz
@@ -135,9 +131,9 @@ mostrarMatriz:
 rotarMatriz:
 		call 	mostrarSaltoDeLinea
 		mov 	eax, [filas]
-		mov 	ebx, [columnas]
-		mul 	ebx
-		mov 	[largo], eax
+		mov 	ecx, [columnas]
+		mul 	ecx
+		mov 	[totalCeldas], eax
 		mov 	eax, 0
 		mov 	[i], eax
 		mov 	eax, [filas]
@@ -145,12 +141,12 @@ rotarMatriz:
 		mov 	[j], eax
 
 bucle:
-		mov 	eax, [largo]
+		mov 	eax, [totalCeldas]
 		cmp 	eax, 0
 		je 		salir
 		mov 	eax, [j]
-		mov 	ebx, [columnas]
-		mul 	ebx
+		mov 	ecx, [columnas]
+		mul 	ecx
 		mov 	edx, [i]
 		add 	eax, edx
 		inc 	eax
@@ -160,12 +156,12 @@ bucle:
 		mov 	eax, [j]
 		dec 	eax
 		mov 	[j], eax
-		mov 	ebx, [j]
-		cmp 	ebx, 0
+		mov 	ecx, [j]
+		cmp 	ecx, 0
 		jl 		if
-		mov 	eax, [largo]
+		mov 	eax, [totalCeldas]
 		dec 	eax
-		mov 	[largo], eax
+		mov 	[totalCeldas], eax
 		jge 	bucle
 
 if:
@@ -177,11 +173,10 @@ if:
 		mov 	[j], eax
 		call	mostrarSaltoDeLinea
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [largo]
+		mov 	eax, [totalCeldas]
 		dec 	eax
-		mov 	[largo], eax
+		mov 	[totalCeldas], eax
 		jmp 	bucle
 
 salir:
-		call 	mostrarSaltoDeLinea
 		call	salirDelPrograma
