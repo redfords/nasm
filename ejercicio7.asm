@@ -96,22 +96,15 @@ calcularTotal:
 		mov 	esi, 0
 		mov 	eax, 1
 
-iniciarValores:
+iniciarCeldas:
 		mov 	[esi * 4 + matriz], eax
 		inc 	esi
 		inc 	eax
 		cmp 	esi, ebx
-		jne 	iniciarValores
+		jne 	iniciarCeldas
 		mov 	esi, 0
 		mov 	edi, 1	
 		jmp 	mostrarMatriz
-
-compararTotal:
-		call 	mostrarSaltoDeLinea
-		call 	mostrarSaltoDeLinea
-		mov 	edi, 1
-		cmp 	esi, ebx
-		je 		rotarMatriz
 
 mostrarMatriz:
 		mov 	eax, [esi * 4 + matriz]
@@ -124,6 +117,14 @@ mostrarMatriz:
 		je 		compararTotal
 		inc 	edi
 		cmp 	esi, ebx
+		jne 	mostrarMatriz
+
+compararTotal:
+		call 	mostrarSaltoDeLinea
+		call 	mostrarSaltoDeLinea
+		mov 	edi, 1
+		cmp 	esi, ebx
+		je 		rotarMatriz
 		jne 	mostrarMatriz
 
 rotarMatriz:
