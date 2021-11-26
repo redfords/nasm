@@ -106,13 +106,6 @@ iniciarCeldas:
 		mov 	edi, 1	
 		jmp 	mostrarMatriz
 
-compararTotal:
-		call 	mostrarSaltoDeLinea
-		call 	mostrarSaltoDeLinea
-		mov 	edi, 1
-		cmp 	esi, ebx
-		je 		transponerMatriz
-
 mostrarMatriz:
 		mov 	eax, [esi * 4 + matriz]
 		mov 	[numero], eax
@@ -124,6 +117,14 @@ mostrarMatriz:
 		je 		compararTotal
 		inc 	edi
 		cmp 	esi, ebx
+		jne 	mostrarMatriz
+
+compararTotal:
+		call 	mostrarSaltoDeLinea
+		call 	mostrarSaltoDeLinea
+		mov 	edi, 1
+		cmp 	esi, ebx
+		je 		transponerMatriz
 		jne 	mostrarMatriz
 
 transponerMatriz:
