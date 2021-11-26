@@ -68,10 +68,7 @@ iniciar:
 		mov 	[numero], eax
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	ebx, [max]
-		cmp 	eax, ebx
-		je 		salir
-		
+
 iniciarContador:
 		mov 	eax, 1
 		mov 	[contNumero], eax
