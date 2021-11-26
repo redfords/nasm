@@ -158,13 +158,13 @@ bucle:
 		mov 	[j], eax
 		mov 	ecx, [j]
 		cmp 	ecx, 0
-		jl 		if
+		jl 		pasarAFilaSig
 		mov 	eax, [totalCeldas]
 		dec 	eax
 		mov 	[totalCeldas], eax
 		jge 	bucle
 
-if:
+pasarAFilaSig:
 		mov 	eax, [i]
 		inc 	eax
 		mov 	[i], eax
