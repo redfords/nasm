@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------------------------
-; Se ingresa una matriz de NxM componentes. La computadora la muestra girada 90° en sentido
-; horario.
+; Se ingresa una matriz de NxM componentes. La computadora la muestra girada 90° en
+; sentido horario.
 ;
 ; 		nasm -f elf ejercicio7.asm
 ;		ld -m elf_i386 -s -o ejercicio7 ejercicio7.o -lc -I /lib/ld-linux.so.2
