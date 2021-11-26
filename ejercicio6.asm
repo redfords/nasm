@@ -21,7 +21,7 @@ numero:
 		resd 	1
 max:
 		resd 	1
-contNum:
+contNumero:
 		resd 	1
 contLinea:
 		resd 	1
@@ -72,14 +72,14 @@ iniciar:
 		cmp 	eax, ebx
 		je 		salir
 		mov 	eax, 1
-		mov 	[contNum], eax
+		mov 	[contNumero], eax
 		mov 	eax, 0
 		mov 	[contLinea], eax
 		mov 	eax, 1
 		mov 	[linea], eax
 
 bucleUno:
-		mov 	eax, [contNum]
+		mov 	eax, [contNumero]
 		mov 	ebx, [max]
 		cmp 	eax, ebx
 		jge		salir
@@ -88,9 +88,9 @@ bucleUno:
 		mov 	[numero], eax
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [contNum]
+		mov 	eax, [contNumero]
 		inc 	eax
-		mov 	[contNum], eax
+		mov 	[contNumero], eax
 		mov 	ebx, [max]
 		cmp 	eax, ebx
 		jge		salir
@@ -107,9 +107,9 @@ bucleDos:
 		mov 	[numero], eax
 		call 	mostrarNumero
 		call 	mostrarSaltoDeLinea
-		mov 	eax, [contNum]
+		mov 	eax, [contNumero]
 		inc 	eax
-		mov 	[contNum], eax
+		mov 	[contNumero], eax
 		mov 	ebx, [max]
 		cmp 	eax, ebx
 		jge		salir
