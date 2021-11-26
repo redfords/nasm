@@ -96,12 +96,12 @@ calcularTotal:
 		mov 	esi, 0
 		mov 	eax, 1
 
-iniciarValores:
+iniciarCeldas:
 		mov 	[esi * 4 + matriz], eax
 		inc 	esi
 		inc 	eax
 		cmp 	esi, ebx
-		jne 	iniciarValores
+		jne 	iniciarCeldas
 		mov 	esi, 0
 		mov 	edi, 1	
 		jmp 	mostrarMatriz
