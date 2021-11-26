@@ -71,6 +71,8 @@ iniciar:
 		mov 	ebx, [max]
 		cmp 	eax, ebx
 		je 		salir
+		
+iniciarContador:
 		mov 	eax, 1
 		mov 	[contNumero], eax
 		mov 	eax, 0
