@@ -104,7 +104,6 @@ iniciarCeldas:
 		jne 	iniciarCeldas
 		mov 	esi, 0
 		mov 	edi, 1	
-		jmp 	mostrarMatriz
 
 mostrarMatriz:
 		mov 	eax, [esi * 4 + matriz]
