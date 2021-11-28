@@ -44,8 +44,6 @@ fmtChar:
 		db		"%c", 0
 fmtLF:
 		db		0xA, 0
-caracter:
-		dd		0x0
 cadenaInicio:
 		db		"Ingresar el numero de filas y luego el de columnas: ", 0
 tabulado:
