@@ -2,7 +2,7 @@
 ; string
 
 cargarCadena:
-		mov 	al, [edi + strInicio]
+		mov 	al, [edi + cadenaInicio]
 		mov 	[edi + cadena], al
 		inc 	edi
 		cmp 	al, 0
